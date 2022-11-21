@@ -32,6 +32,36 @@ Register With Nonmatching Password And Password Confirmation
     Set Confirmation  abcdefG
     Submit Credentials
     Registering Should Fail With Message  Passwords do not match
+
+Login After Successful Registration
+    Set Username  abcc
+    Set Password  abcdefGH13
+    Set Confirmation  abcdefGH13
+    Submit Credentials
+    Registering Should Succeed
+    Go To App Page
+    Main Page Should Be Open
+    Submit Logout
+    Go To Login Page
+    Login Page Should Be Open
+    Set Username  abcc
+    Set Password  abcdefGH13
+    Submit Login
+    Main Page Should Be Open
+    
+Login After Failed Registration
+    Set Username  abcde
+    Set Password  abcdefGH13
+    Set Confirmation  abcdefG
+    Submit Credentials
+    Registering Should Fail With Message  Passwords do not match
+    Go To Login Page
+    Login Page Should Be Open
+    Set Username  abcde
+    Set Password  abcdefGH13
+    Submit Login
+    Page Should Contain  Invalid username or password
+
 *** Keywords ***
 Go To Register Page And Check
     Go To Register Page
@@ -51,6 +81,12 @@ Set Confirmation
 
 Submit Credentials
     Click Button  Register
+
+Submit Logout
+    Click Button  Logout
+
+Submit Login
+    Click Button  Login
 
 Registering Should Succeed
     Welcome Page Should Be Open
