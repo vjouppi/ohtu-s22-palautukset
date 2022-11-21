@@ -27,7 +27,9 @@ def main():
 
     print("Players from FIN " + str(datetime.now()) + "\n")
 
+    players.sort(key=lambda x: x.points, reverse = True)
+
     for player in players:
-        print(str(player) + " team " + player.team + " goals " + str(player.goals) + " assists " + str(player.assists))
+        print(f"{str(player):20}" + " " + player.team + f" {str(player.goals):2}" + " + " + f"{str(player.assists):2}" + f" = {str(player.points):3}")
 if __name__ == "__main__":
     main()
