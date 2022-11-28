@@ -33,6 +33,8 @@ class Ostoskori:
         nimi = poistettava.nimi()
         if nimi in self.sisalto:
             self.sisalto[nimi].muuta_lukumaaraa(-1)
+            if self.sisalto[nimi].lukumaara() == 0:
+                del self.sisalto[nimi]
 
     def tyhjenna(self):
         pass
