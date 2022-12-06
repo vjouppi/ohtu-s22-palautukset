@@ -8,11 +8,38 @@ class Komento(Enum):
     NOLLAUS = 3
     KUMOA = 4
 
+class Summa:
+    def __init__(self, sovellus, arvonluku):
+        self.sovellus = sovellus
+        self.arvonluku = arvonluku
+    def suorita(self):
+        return (self.sovellus.plus(self.arvonluku()))
+class Erotus:
+    def __init__(self, sovellus, arvonluku):
+        self.sovellus = sovellus
+        self.arvonluku = arvonluku
+    def suorita(self):
+        return (self.sovellus.miinus(self.arvonluku()))
+class Nollaus:
+    def __init__(self, sovellus):
+        self.sovellus = sovellus
+    def suorita(self):
+        return (self.sovellus.nollaa())
+class Kumoa:
+    def __init__(self, sovellus):
+        self.sovellus = sovellus
+    def suorita(self):
+        pass
 
 class Kayttoliittyma:
     def __init__(self, sovellus, root):
         self._sovellus = sovellus
         self._root = root
+        self._komennot =  {
+                Komento.SUMMA: Summa(sovellus, self._hae_numero),
+                Komento.EROTUS: Erotus(sovellus, self._hae_numero),
+                Komento.NOLLAUS: Nollaus(sovellus),
+                Komento.KUMOA: Kumoa(sovellus)}
 
     def kaynnista(self):
         self._tulos_var = StringVar()
@@ -54,22 +81,28 @@ class Kayttoliittyma:
         self._nollaus_painike.grid(row=2, column=2)
         self._kumoa_painike.grid(row=2, column=3)
 
-    def _suorita_komento(self, komento):
-        arvo = 0
-
+    def _hae_numero(self):
         try:
-            arvo = int(self._syote_kentta.get())
+            return(int(self._syote_kentta.get()))
         except Exception:
             pass
 
-        if komento == Komento.SUMMA:
-            self._sovellus.plus(arvo)
-        elif komento == Komento.EROTUS:
-            self._sovellus.miinus(arvo)
-        elif komento == Komento.NOLLAUS:
-            self._sovellus.nollaa()
-        elif komento == Komento.KUMOA:
+    def _suorita_komento(self, komento):
+        #arvo = self._hae_numero()
+
+        if komento in self._komennot:
+            self._komennot[komento].suorita()
+        else:
             pass
+
+        #if komento == Komento.SUMMA:
+        #    self._sovellus.plus(arvo)
+        #elif komento == Komento.EROTUS:
+        #    self._sovellus.miinus(arvo)
+        #elif komento == Komento.NOLLAUS:
+        #    self._sovellus.nollaa()
+        #elif komento == Komento.KUMOA:
+        #    pass
 
         self._kumoa_painike["state"] = constants.NORMAL
 
