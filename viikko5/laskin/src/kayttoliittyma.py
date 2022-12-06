@@ -29,7 +29,7 @@ class Kumoa:
     def __init__(self, sovellus):
         self.sovellus = sovellus
     def suorita(self):
-        pass
+        return (self.sovellus.kumoa())
 
 class Kayttoliittyma:
     def __init__(self, sovellus, root):
