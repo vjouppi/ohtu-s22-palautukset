@@ -16,6 +16,9 @@ class QueryBuilder:
     def hasFewerThan(self, fewerthan, what):
         return QueryBuilder(HasFewerThan(fewerthan, what), self.query_object)
 
+    def oneOf(self, query1, query2):
+        return QueryBuilder(Or(query1, query2), self.query_object)
+
     def build(self):
         if self.query_object == None:
             self.query_object = All()
