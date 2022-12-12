@@ -13,6 +13,12 @@ def main():
 
     query = QueryBuilder()
 
+    #matcher = query.build()
+    matcher = query.playsIn("NYR").hasAtLeast(10, "goals").hasFewerThan(20, "goals").build()
+
+    for player in stats.matches(matcher):
+        print(player)
+
     #matcher = And(
         #HasAtLeast(5, "goals"),
         #HasAtLeast(5, "assists"),
@@ -49,27 +55,27 @@ def main():
 #
     #spacer()
     #
-    matcher = Or(
-        HasAtLeast(45, "goals"),
-        HasAtLeast(70, "assists")
-    )
-
-    for player in stats.matches(matcher):
-        print(player)
-
-    spacer()
-    
-    matcher = And(
-        HasAtLeast(70, "points"),
-        Or(
-            PlaysIn("NYR"),
-            PlaysIn("FLA"),
-            PlaysIn("BOS")
-        )
-    )
-
-    for player in stats.matches(matcher):
-        print(player)
+    #matcher = Or(
+        #HasAtLeast(45, "goals"),
+        #HasAtLeast(70, "assists")
+    #)
+#
+    #for player in stats.matches(matcher):
+        #print(player)
+#
+    #spacer()
+    #
+    #matcher = And(
+        #HasAtLeast(70, "points"),
+        #Or(
+            #PlaysIn("NYR"),
+            #PlaysIn("FLA"),
+            #PlaysIn("BOS")
+        #)
+    #)
+#
+    #for player in stats.matches(matcher):
+        #print(player)
 
 if __name__ == "__main__":
     main()
